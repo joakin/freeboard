@@ -68,9 +68,19 @@ span.subtitle {
   white-space: normal;
 }
 
-.post { position: relative; }
-.post h4 { }
-.post .date { position: absolute; top: 5px; right: 5px; }
+.post {
+  overflow: hidden;
+  border-top: 2px solid #eee;
+  padding: 10px 0;
+  margin: 10px 0;
+}
+.post h4 { float: left; margin: 0; }
+.post .date { font-style: italic; float: right; }
+.post .text {
+  clear: both;
+  padding: 10px;
+}
+.post img { max-width: 100%; }
 
 
 
