@@ -3,6 +3,7 @@
   <form action='/put' method='post' accept-charset='utf-8'>
     <fieldset>
       <legend>Add post</legend>
+      <input name='csrf' class='csrf' type='hidden'>
       <p><input name='title' type='text' placeholder=''></p>
       <p><textarea name='text' placeholder='Contents here...'></textarea></p>
       <p><input type='submit' value='Send →'></p>
