@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "watch": "nodemon -e js,html index.js",
-    "test": "tape test/*"
+    "test": "tape test/*",
+    "deploy": "npm install"
   },
   "keywords": [
     "board",
