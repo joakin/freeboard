@@ -70,19 +70,17 @@ span.subtitle {
   margin-bottom: 20px;
 }
 
-.post {
+.post, .comment {
   overflow: hidden;
   border-top: 2px solid #eee;
   padding: 10px 0;
   margin: 10px 0;
 }
 .post h4 { float: left; margin: 0; }
-.post .date { font-style: italic; float: right; }
-.post .text {
-  clear: both;
-  padding: 10px;
-}
+.post .date { font-style: italic; float: right; padding-right: 5px; }
+.post>.text { clear: both; padding: 10px; }
 .post img { max-width: 100%; }
-
-
+.comments { padding: 0 15px; }
+.comment { padding: 10px; }
+.comment .text :first-child { margin-top: 0; }
 
