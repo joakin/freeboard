@@ -4,6 +4,10 @@ var views = require('./views')
 var ecstatic = require('ecstatic')
 var anybody = require('body/any')
 var redirect = require("redirecter")
+var sendHtml = require('send-data/html')
+
+var React = require('react');
+var ServerError = require('./ui/error.jsx')
 
 var csrf = require('csrf')()
 var secret = csrf.secretSync()
@@ -108,9 +112,11 @@ function notFound(req, res, match) {
 
 function error(req, res, err) {
   console.log('Error', err)
-  views.render(req, res, {
+  sendHtml(req, res, {
     statusCode: err.statusCode || 500,
-    title: 'error',
-    body: templates.error({ error: err }).innerHTML
+    body: views.renderReact({
+      title: 'error!!',
+      body: <ServerError error={err} />
+    })
   })
 }

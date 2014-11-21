@@ -1,4 +1,6 @@
 
+require('node-jsx').install({extension: '.jsx'})
+
 var http = require('http')
 var router = require('./lib/router')
 

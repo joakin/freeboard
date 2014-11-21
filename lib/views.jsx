@@ -1,3 +1,5 @@
+var React = require('react');
+
 var sendHtml = require('send-data/html')
 var templates = require('./ui/templates')
 
@@ -13,3 +15,11 @@ exports.render = function (req, res, options) {
     }).innerHTML
   })
 }
+
+exports.renderReact = function (options) {
+  return templates.layout({
+    title: options.title || 'O Hai',
+    body: { _html: React.renderToStaticMarkup(options.body) }
+  }).innerHTML
+}
+
