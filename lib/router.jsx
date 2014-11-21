@@ -8,6 +8,7 @@ var sendHtml = require('send-data/html')
 
 var React = require('react');
 var ServerError = require('./ui/error.jsx')
+var NotFound = require('./ui/not-found.jsx')
 
 var csrf = require('csrf')()
 var secret = csrf.secretSync()
@@ -103,10 +104,12 @@ function assets(req, res) {
 
 function notFound(req, res, match) {
   console.log('Req not found', match)
-  views.render(req, res, {
+  sendHtml(req, res, {
     statusCode: 404,
-    title: 'not found',
-    body: templates.notFound().innerHTML
+    body: views.renderReact({
+      title: 'not found',
+      body: <NotFound />
+    })
   })
 }
 
