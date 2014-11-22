@@ -1,5 +1,5 @@
 
-require('node-jsx').install({extension: '.jsx'})
+require('node-jsx').install({harmony: true, extension: '.jsx'})
 
 var http = require('http')
 var router = require('./lib/router')

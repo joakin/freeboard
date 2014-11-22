@@ -9,6 +9,7 @@ var sendHtml = require('send-data/html')
 var React = require('react');
 var ServerError = require('./ui/error.jsx')
 var NotFound = require('./ui/not-found.jsx')
+var {Post, PostShort} = require('./ui/post.jsx')
 
 var csrf = require('csrf')()
 var secret = csrf.secretSync()
@@ -40,11 +41,11 @@ function postGet(req, res, match) {
   console.log('Req post', match.params.id)
   db.posts.get(match.params.id, function(err, post) {
     if (err) return error(req, res, err)
-    views.render(req, res, {
-      title: post.title + ' - post',
-      body: templates.post.full(post, {
-        csrf: csrf.create(secret)
-      }).innerHTML,
+    sendHtml(req, res, {
+      body: views.renderReact({
+        title: post.title + ' - post',
+        body: <Post post={post} csrf={csrf.create(secret)} />
+      })
     })
   })
 }
