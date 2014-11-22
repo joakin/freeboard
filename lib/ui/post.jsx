@@ -39,14 +39,14 @@ exports.Post = React.createClass({
   }
 })
 
-exports.PostShort = function() {}
-
-exports.short = function (post) {
-  return hyperglue(shortHtml, {
-    'h4 a': {
-      href: '/' + post.date,
-      _text: post.title
-    },
-    '.date': displayDate(post.date)
-  })
-}
+exports.PostShort = React.createClass({
+  render: function() {
+    var post = this.props
+    return (
+      <div className='post short'>
+        <h4><a href={ '/' + post.date }>{ post.title }</a></h4>
+        <span className='date'>{ displayDate(post.date) }</span>
+      </div>
+    )
+  }
+})

@@ -1,6 +1,5 @@
 var router = module.exports = require('routes')()
-var templates = require('./ui/templates')
-var views = require('./views')
+var View = require('./view')
 var ecstatic = require('ecstatic')
 var anybody = require('body/any')
 var redirect = require("redirecter")
@@ -10,6 +9,7 @@ var React = require('react');
 var ServerError = require('./ui/error.jsx')
 var NotFound = require('./ui/not-found.jsx')
 var {Post, PostShort} = require('./ui/post.jsx')
+var Index = require('./ui/index.jsx')
 
 var csrf = require('csrf')()
 var secret = csrf.secretSync()
@@ -28,11 +28,10 @@ function index(req, res) {
   console.log('Req index')
   db.posts.list(function(err, posts) {
     if (err) return error(req, res, err)
-    views.render(req, res, {
-      body: templates.index({
-        posts: posts,
-        csrf: csrf.create(secret)
-      }).innerHTML
+    sendHtml(req, res, {
+      body: View({
+        body: <Index posts={posts} csrf={csrf.create(secret)} />
+      })
     })
   })
 }
@@ -42,7 +41,7 @@ function postGet(req, res, match) {
   db.posts.get(match.params.id, function(err, post) {
     if (err) return error(req, res, err)
     sendHtml(req, res, {
-      body: views.renderReact({
+      body: View({
         title: post.title + ' - post',
         body: <Post post={post} csrf={csrf.create(secret)} />
       })
@@ -107,7 +106,7 @@ function notFound(req, res, match) {
   console.log('Req not found', match)
   sendHtml(req, res, {
     statusCode: 404,
-    body: views.renderReact({
+    body: View({
       title: 'not found',
       body: <NotFound />
     })
@@ -118,7 +117,7 @@ function error(req, res, err) {
   console.log('Error', err)
   sendHtml(req, res, {
     statusCode: err.statusCode || 500,
-    body: views.renderReact({
+    body: View({
       title: 'error!!',
       body: <ServerError error={err} />
     })
