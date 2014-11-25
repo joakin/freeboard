@@ -37,7 +37,7 @@ exports.Post = React.createClass({
 
 exports.PostShort = React.createClass({
   render: function() {
-    var post = this.props
+    var post = this.props.post
     return (
       <div className='post short'>
         <h4><a href={ '/' + post.date }>{ post.title }</a></h4>

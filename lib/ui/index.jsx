@@ -4,11 +4,12 @@ var { PostShort } = require('./post')
 
 module.exports = React.createClass({
   render: function() {
-    var posts = this.props.posts.map((p) => <PostShort {...p} />)
+    var posts = this.props.posts
+      .map((p) => <PostShort key={p.date} post={p} />)
     return (
-      <div class='index'>
+      <div className='index'>
         <div className='put-post'>
-          <form action='/put' method='post' accept-charset='utf-8'>
+          <form action='/put' method='post' acceptCharset='utf-8'>
             <fieldset>
               <legend>Add post</legend>
               <input name='csrf' className='csrf' type='hidden'
