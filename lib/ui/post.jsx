@@ -1,9 +1,5 @@
 
-var hyperglue = require('hyperglue')
-var fs = require('fs');
 var vagueTime = require('vague-time')
-var shortHtml = fs.readFileSync(__dirname + '/templates/post-short.html');
-
 var React = require('react')
 
 var Comment = require('./comment')
