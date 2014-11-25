@@ -1,6 +1,7 @@
 
 var React = require('react')
 var Csrf = require('./csrf')
+var TextInput = require('./text-input')
 
 module.exports = React.createClass({
   render: function() {
@@ -11,8 +12,7 @@ module.exports = React.createClass({
           <Csrf />
           <p><input name='title' type='text'
             placeholder="OMG I'm posting on the internet!!" /></p>
-          <p><textarea name='text'
-            placeholder='Hi people! How are you doing?'></textarea></p>
+          <p><TextInput placeholder='Hi people! How are you doing?'/></p>
           <p><input type='submit' value='Send →' /></p>
         </fieldset>
       </form>
