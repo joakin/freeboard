@@ -1,12 +1,8 @@
 
-var vagueTime = require('vague-time')
 var React = require('react')
 
 var Comment = require('./comment')
-
-function displayDate(timestamp) {
-  return vagueTime.get({ to: timestamp })
-}
+var RelativeDate = require('./relative-date')
 
 exports.Post = React.createClass({
   render: function() {
@@ -16,7 +12,7 @@ exports.Post = React.createClass({
       <div className='post'>
         <h4>{ post.title }</h4>
 
-        <span className='date'>{ displayDate(post.date) }</span>
+        <RelativeDate date={post.date} />
         <div className='text'
           dangerouslySetInnerHTML={{__html: post.text}} />
 
@@ -41,7 +37,7 @@ exports.PostShort = React.createClass({
     return (
       <div className='post short'>
         <h4><a href={ '/' + post.date }>{ post.title }</a></h4>
-        <span className='date'>{ displayDate(post.date) }</span>
+        <RelativeDate date={ post.date } />
       </div>
     )
   }
