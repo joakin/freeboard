@@ -28,7 +28,7 @@ function index(req, res) {
     if (err) return error(req, res, err)
     sendHtml(req, res, {
       body: View({
-        body: <Index posts={posts} csrf={csrf.get()} />
+        body: <Index posts={posts} />
       })
     })
   })
