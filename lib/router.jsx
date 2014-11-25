@@ -16,11 +16,26 @@ var db = require('./db')
 
 router.addRoute('/css/*', assets)
 router.addRoute('/fonts/*', assets)
-router.addRoute('/', index)
-router.addRoute('/put', postPut)
-router.addRoute('/:id', postGet)
-router.addRoute('/:id/comment', comment)
-router.addRoute('/*', notFound)
+router.addRoute('/', app)
+router.addRoute('/*', app)
+// router.addRoute('/', index)
+// router.addRoute('/put', postPut)
+// router.addRoute('/:id', postGet)
+// router.addRoute('/:id/comment', comment)
+// router.addRoute('/*', notFound)
+
+var Router = require('react-router')
+var routes = require('./routes')
+
+function app(req, res) {
+  Router.run(routes, req.url, function(Handler) {
+    sendHtml(req, res, {
+      body: View({
+        body: <Handler/>
+      })
+    })
+  })
+}
 
 function index(req, res) {
   console.log('Req index')
