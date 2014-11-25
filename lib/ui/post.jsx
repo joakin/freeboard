@@ -2,6 +2,7 @@
 var React = require('react')
 
 var Comment = require('./comment')
+var CommentForm = require('./comment-form')
 var RelativeDate = require('./relative-date')
 var Text = require('./text')
 
@@ -17,15 +18,7 @@ exports.Post = React.createClass({
         <Text text={ post.text } />
 
         <div id='comments' className='comments'>{comments}</div>
-
-        <form action={post.date + '/comment'} method='post' acceptCharset='utf-8'>
-          <input name='csrf' className='csrf' type='hidden'
-            value={this.props.csrf} />
-          <p className='inline'>
-            <textarea name='text' placeholder='Comment...'></textarea>
-            <input type='submit' value='Send →' />
-          </p>
-        </form>
+        <CommentForm post={post} />
       </div>
     )
   }

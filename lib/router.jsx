@@ -11,9 +11,7 @@ var NotFound = require('./ui/not-found.jsx')
 var {Post, PostShort} = require('./ui/post.jsx')
 var Index = require('./ui/index.jsx')
 
-var csrf = require('csrf')()
-var secret = csrf.secretSync()
-
+var csrf = require('./utils/csrf')
 var db = require('./db')
 
 router.addRoute('/css/*', assets)
@@ -30,7 +28,7 @@ function index(req, res) {
     if (err) return error(req, res, err)
     sendHtml(req, res, {
       body: View({
-        body: <Index posts={posts} csrf={csrf.create(secret)} />
+        body: <Index posts={posts} csrf={csrf.get()} />
       })
     })
   })
@@ -43,7 +41,7 @@ function postGet(req, res, match) {
     sendHtml(req, res, {
       body: View({
         title: post.title + ' - post',
-        body: <Post post={post} csrf={csrf.create(secret)} />
+        body: <Post post={post} />
       })
     })
   })
@@ -56,7 +54,7 @@ function postPut(req, res) {
   anybody(req, res, function(err, body) {
     console.log('Parsed body', body)
     if (err) return error(req, res, err)
-    if (!csrf.verify(secret, body.csrf)) {
+    if (!csrf.verify(body.csrf)) {
       var csrfErr = new Error('Unauthorized')
       csrfErr.statusCode = 403
       return error(req, res, csrfErr)
@@ -81,7 +79,7 @@ function comment(req, res, match) {
   anybody(req, res, function(err, body) {
     console.log('Parsed body', body)
     if (err) return error(req, res, err)
-    if (!csrf.verify(secret, body.csrf)) {
+    if (!csrf.verify(body.csrf)) {
       var csrfErr = new Error('Unauthorized')
       csrfErr.statusCode = 403
       return error(req, res, csrfErr)
