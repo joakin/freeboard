@@ -1,5 +1,5 @@
 
-# freeboard
+# duckingboard
 
 A public forum, anonymous and with no registration
 
