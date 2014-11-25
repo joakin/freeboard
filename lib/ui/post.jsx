@@ -3,6 +3,7 @@ var React = require('react')
 
 var Comment = require('./comment')
 var RelativeDate = require('./relative-date')
+var Text = require('./text')
 
 exports.Post = React.createClass({
   render: function() {
@@ -13,8 +14,7 @@ exports.Post = React.createClass({
         <h4>{ post.title }</h4>
 
         <RelativeDate date={post.date} />
-        <div className='text'
-          dangerouslySetInnerHTML={{__html: post.text}} />
+        <Text text={ post.text } />
 
         <div id='comments' className='comments'>{comments}</div>
 
