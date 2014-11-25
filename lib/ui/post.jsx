@@ -18,7 +18,7 @@ exports.Post = React.createClass({
 
         <div id='comments' className='comments'>{comments}</div>
 
-        <form action={post.date + '/comment'} method='post' accept-charset='utf-8'>
+        <form action={post.date + '/comment'} method='post' acceptCharset='utf-8'>
           <input name='csrf' className='csrf' type='hidden'
             value={this.props.csrf} />
           <p className='inline'>
