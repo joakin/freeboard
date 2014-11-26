@@ -99,7 +99,7 @@ function comment(req, res, match) {
     var comment = { text: body.text, post: postId }
     db.comments.put(comment).then(function() {
       console.log('Successful comment', comment)
-      redirect(req, res, '/' + postId + '#comments')
+      redirect(req, res, '/' + postId)
     }).catch(function(err) { return error(req, res, err) })
   })
 }
