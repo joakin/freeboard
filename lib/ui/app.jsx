@@ -9,7 +9,7 @@ module.exports = React.createClass({
         <h1 className='page-title'><a href='/'>&lt;duckingboard&gt;</a></h1>
         <span className='subtitle'>free post board, no moderation, completely anonymous</span>
         <div className='content'>
-          <RouteHandler/>
+          <RouteHandler {...this.props}/>
         </div>
       </div>
     )

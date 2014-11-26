@@ -7,6 +7,9 @@ var RelativeDate = require('./relative-date')
 var Text = require('./text')
 
 exports.Post = React.createClass({
+  statics: {
+    dataDeps: ['post', 'csrf']
+  },
   render: function() {
     var post = this.props.post
     var comments = post.comments.map((c) => <Comment key={c.date} {...c} />)
@@ -18,7 +21,7 @@ exports.Post = React.createClass({
         <Text text={ post.text } />
 
         <div id='comments' className='comments'>{comments}</div>
-        <CommentForm post={post} />
+        <CommentForm {...this.props} />
       </div>
     )
   }

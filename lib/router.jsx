@@ -8,18 +8,23 @@ var sendHtml = require('send-data/html')
 var React = require('react');
 var ServerError = require('./ui/error.jsx')
 var NotFound = require('./ui/not-found.jsx')
-var {Post, PostShort} = require('./ui/post.jsx')
+var {Post} = require('./ui/post.jsx')
 var Index = require('./ui/index.jsx')
 
 var csrf = require('./utils/csrf')
 var db = require('./db')
 
+// Static assets
 router.addRoute('/css/*', assets)
 router.addRoute('/fonts/*', assets)
+router.addRoute('/favicon.ico', assets)
+// Api
+router.addRoute('/put', postPut)
+router.addRoute('/:id/comment', comment)
+// App
 router.addRoute('/', app)
 router.addRoute('/*', app)
-// router.addRoute('/', index)
-// router.addRoute('/put', postPut)
+
 // router.addRoute('/:id', postGet)
 // router.addRoute('/:id/comment', comment)
 // router.addRoute('/*', notFound)
@@ -28,24 +33,14 @@ var Router = require('react-router')
 var routes = require('./routes')
 
 function app(req, res) {
-  Router.run(routes, req.url, function(Handler) {
-    sendHtml(req, res, {
-      body: View({
-        body: <Handler/>
+  Router.run(routes, req.url, function(Handler, state) {
+    db.fetchRenderData(state).then((data) =>
+      sendHtml(req, res, {
+        body: View({
+          body: <Handler {...data}/>
+        })
       })
-    })
-  })
-}
-
-function index(req, res) {
-  console.log('Req index')
-  db.posts.list(function(err, posts) {
-    if (err) return error(req, res, err)
-    sendHtml(req, res, {
-      body: View({
-        body: <Index posts={posts} />
-      })
-    })
+    ).catch((err) => error(req, res, err))
   })
 }
 
@@ -79,10 +74,11 @@ function postPut(req, res) {
       title: body.title,
       text: body.text
     }
-    db.posts.put(post, function(err) {
-      if (err) return error(req, res, err)
+    db.posts.put(post).then(function() {
       console.log('Successful post', post)
       redirect(req, res, '/' + post.date)
+    }).catch(function(err) {
+      return error(req, res, err)
     })
   })
 }
@@ -101,11 +97,10 @@ function comment(req, res, match) {
     }
     var postId = match.params.id
     var comment = { text: body.text, post: postId }
-    db.comments.put(comment, function(err) {
-      if (err) return error(req, res, err)
+    db.comments.put(comment).then(function() {
       console.log('Successful comment', comment)
       redirect(req, res, '/' + postId + '#comments')
-    })
+    }).catch(function(err) { return error(req, res, err) })
   })
 }
 
