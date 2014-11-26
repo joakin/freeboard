@@ -19,7 +19,7 @@ module.exports = React.createClass({
     )
     return (
       <div className='index'>
-        <PostForm />
+        <PostForm {...this.props}/>
         <div className='posts'>{ posts && posts.length? posts: noPosts }</div>
       </div>
     )

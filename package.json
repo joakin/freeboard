@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "watch": "nodemon -e js,jsx,html index.js",
+    "watch-server": "nodemon -e js,jsx,html index.js",
+    "watch-client": "watchify -v --extension=.jsx browser.js -o static/js/index.js",
+    "watch": "npm run watch-server & npm run watch-client",
     "test": "tape test/*",
     "deploy": "npm install"
   },
@@ -19,6 +21,7 @@
   "license": "GPL",
   "devDependencies": {
     "node-jsx": "^0.12.0",
+    "reactify": "^0.17.1",
     "tape": "^3.0.3"
   },
   "dependencies": {
@@ -35,10 +38,21 @@
     "react-router": "^0.11.2",
     "redirecter": "^0.2.3",
     "remarkable": "^1.4.1",
-    "routes": "^1.2.0",
+    "routes": "^2.0.0",
     "send-data": "^3.3.3",
     "vague-time": "^1.1.0",
     "watchify": "^2.1.1",
     "when": "^3.6.3"
+  },
+  "browser": "./browser.js",
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
   }
 }

@@ -9,7 +9,7 @@ module.exports = React.createClass({
       <form action='/put' method='post' acceptCharset='utf-8'>
         <fieldset>
           <legend>Add post</legend>
-          <Csrf />
+          <Csrf csrf={this.props.csrf}/>
           <p><input name='title' type='text'
             placeholder="OMG I'm posting on the internet!!" /></p>
           <p><TextInput placeholder='Hi people! How are you doing?'/></p>

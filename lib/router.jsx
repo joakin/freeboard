@@ -15,6 +15,7 @@ var csrf = require('./utils/csrf')
 var db = require('./db')
 
 // Static assets
+router.addRoute('/js/*', assets)
 router.addRoute('/css/*', assets)
 router.addRoute('/fonts/*', assets)
 router.addRoute('/favicon.ico', assets)
