@@ -16,6 +16,7 @@ var db = require('./db')
 
 router.addRoute('/css/*', assets)
 router.addRoute('/fonts/*', assets)
+router.addRoute('/favicon.ico', assets)
 router.addRoute('/', index)
 router.addRoute('/put', postPut)
 router.addRoute('/:id', postGet)
