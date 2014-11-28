@@ -12,6 +12,9 @@ module.exports = React.createClass({
         </a>
       </div>
     )
+  },
+  getValue: function() {
+    return this.refs.text.getDOMNode().value
   }
 })
 

@@ -6,7 +6,8 @@ var Layout = require('./ui/layout')
 module.exports = function (options) {
   return Layout({
     title: options.title || 'O Hai',
-    body: React.renderToString(options.body)
+    body: React.renderToString(options.body),
+    data: options.data
   })
 }
 
