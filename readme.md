@@ -1,5 +1,6 @@
 
 # duckingboard
+![Project unmaintained](https://img.shields.io/badge/project-unmaintained-red.svg)
 
 A public forum, anonymous and with no registration
 
@@ -11,4 +12,4 @@ npm start # start the server
 npm run watch # start the server in dev mode (auto reload, requires nodemon)
 ```
 
-Example at [duckingboard.com](http://duckingboard.com)
+~~Example at [duckingboard.com](http://duckingboard.com)~~
